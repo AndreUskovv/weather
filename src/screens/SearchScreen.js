@@ -21,7 +21,7 @@ class SearchScreen extends Component {
 
     componentDidMount(): void {
         const location = this.props.navigation.getParam("location");
-        if(location) {
+        if (location) {
             const city = capitalize(location.split(',')[0]);
             this.setState({searchText: city},
                 () => this.getWeather(city));
@@ -59,13 +59,18 @@ class SearchScreen extends Component {
                     </Item>
                 </Header>
 
-                <Content contentContainerStyle={styles.content}>
+                <Content contentContainerStyle={styles.content}
+                         showsVerticalScrollIndicator={false}>
                     {(weather && weather.list) ?
                         weather.list.map((item, key) =>
-                            <WeatherItem key={key} dt={item.dt_txt} day={item.dt} temp={item.main.temp}/>
+                            <WeatherItem
+                                key={key}
+                                dt={item.dt_txt}
+                                day={item.dt}
+                                temp={item.main.temp}/>
                         ) :
                         <Text>If you want know the weather in this place {'\n'} please change the nearest city</Text>
-                        }
+                    }
                 </Content>
 
                 <Footer>

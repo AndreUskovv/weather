@@ -20,12 +20,13 @@ export default class App extends Component {
     }
 
     mapPressed = event => {
+        if(this.marker)
+            this.marker.hideCallout();
+
         this.setState({
             coordinates: {
                 latitude: event.nativeEvent.coordinate.longitude,
-                longitude: event.nativeEvent.coordinate.latitude,
-                location: null,
-                temp: null
+                longitude: event.nativeEvent.coordinate.latitude
             }
         }, () => this.getLocation())
     };
@@ -86,6 +87,7 @@ export default class App extends Component {
                         pinColor="red"
                         title={location}
                         description={temp}
+                        ref={ref => { this.marker = ref; }}
                         onCalloutPress={() => navigation.navigate('Search', {location: location})}
                     />}
                 </MapView>
