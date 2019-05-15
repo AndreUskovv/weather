@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import {StyleSheet} from 'react-native';
-import {Container, Header, Content, Item, Input} from 'native-base';
-import {ImageButton} from "../components/Button";
+import {StyleSheet, Text} from 'react-native';
+import {Container, Header, Content, Item, Input, FooterTab, Footer} from 'native-base';
+import {ImageButton, TextButton} from "../components/Button";
 import WeatherItem from "../components/WeatherItem";
-import {Images, week, colors} from "../config";
+import {Images, colors} from "../config";
 import {normalize, capitalize} from "../utilities";
-import {fetchWeather} from "../api";
+import {fetchWeatherForFiveDays} from "../api";
+import mainStyles from "../styles";
 
 
 class SearchScreen extends Component {
@@ -30,13 +31,14 @@ class SearchScreen extends Component {
     handleSearch = () => this.getWeather(this.state.searchText);
 
     getWeather = async city => {
-        const value = await fetchWeather(city, 7);
-        const day = new Date(value.dt * 1000).getDay();
-        this.setState({weather: value, day})
+        const value = await fetchWeatherForFiveDays(city);
+
+        this.setState({weather: value});
     };
 
     render() {
         const {searchText, weather, day} = this.state;
+        const {navigation} = this.props;
 
         return (
             <Container>
@@ -58,8 +60,27 @@ class SearchScreen extends Component {
                 </Header>
 
                 <Content contentContainerStyle={styles.content}>
-                    {weather && !weather.message && <WeatherItem day={week[day]} temp={weather.main.temp}/>}
+                    {(weather && weather.list) ?
+                        weather.list.map((item, key) =>
+                            <WeatherItem key={key} dt={item.dt_txt} day={item.dt} temp={item.main.temp}/>
+                        ) :
+                        <Text>If you want know the weather in this place {'\n'} please change the nearest city</Text>
+                        }
                 </Content>
+
+                <Footer>
+                    <FooterTab style={mainStyles.footer}>
+                        <TextButton name="MAP"
+                                    disabled={false}
+                                    textStyle={mainStyles.buttonText}
+                                    wrapperStyle={mainStyles.buttonEnabled}
+                                    onButtonPress={() => navigation.goBack()}/>
+                        <TextButton name="SEARCH"
+                                    disabled
+                                    textStyle={mainStyles.buttonText}
+                                    wrapperStyle={mainStyles.buttonDisabled}/>
+                    </FooterTab>
+                </Footer>
             </Container>
         );
     }

@@ -29,7 +29,9 @@ const colors = {
     blue: 'blue',
     white: '#fff',
     border: '#eaeaea',
-    lightblue: "#85CAFF"
+    lightblue: "#85CAFF",
+    disabled: "#63AEEE",
+    enabled: "#2699FB"
 
 };
 

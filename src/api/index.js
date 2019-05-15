@@ -20,4 +20,14 @@ const fetchWeather = (city, quantity) => {
         .catch(error => console.log(error))
 };
 
-export {fetchLocation, fetchWeather};
+const fetchWeatherForFiveDays = city => {
+    // Construct the API url to call
+    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&APPID=${weatherApiKey}`;
+
+    // Call the API, and set the state of the weather forecast
+    return fetch(url)
+        .then(response => response.json())
+        .catch(error => console.log(error))
+};
+
+export {fetchLocation, fetchWeather, fetchWeatherForFiveDays};

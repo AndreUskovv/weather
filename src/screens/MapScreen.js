@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
-import { View} from 'react-native';
+import { View } from 'react-native';
+import { Footer, FooterTab } from "native-base";
 import MapView, { Marker } from 'react-native-maps';
+import {TextButton} from "../components/Button";
 import {fetchLocation, fetchWeather} from "../api";
-import {initialRegion} from "../config";
+import {initialRegion, colors} from "../config";
+import mainStyles from './../styles';
 
 
 export default class App extends Component {
@@ -86,6 +89,20 @@ export default class App extends Component {
                         onCalloutPress={() => navigation.navigate('Search', {location: location})}
                     />}
                 </MapView>
+
+                <Footer>
+                    <FooterTab style={mainStyles.footer}>
+                        <TextButton name="MAP"
+                                    disabled
+                                    textStyle={mainStyles.buttonText}
+                                    wrapperStyle={mainStyles.buttonDisabled}/>
+                        <TextButton name="SEARCH"
+                                    disabled={false}
+                                    textStyle={mainStyles.buttonText}
+                                    wrapperStyle={mainStyles.buttonEnabled}
+                                    onButtonPress={() => navigation.navigate('Search')}/>
+                    </FooterTab>
+                </Footer>
             </View>
         );
     }
