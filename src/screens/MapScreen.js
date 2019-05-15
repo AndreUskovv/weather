@@ -4,7 +4,7 @@ import { Footer, FooterTab } from "native-base";
 import MapView, { Marker } from 'react-native-maps';
 import {TextButton} from "../components/Button";
 import {fetchLocation, fetchWeather} from "../api";
-import {initialRegion, colors} from "../config";
+import {initialRegion} from "../config";
 import mainStyles from './../styles';
 
 
@@ -60,7 +60,7 @@ export default class App extends Component {
             const {temp} = weather.main;
 
             this.setState({
-                temp: temp > 0 ? `+${temp}` : temp
+                temp: temp > 0 ? `+${temp}°` : `${temp}°`
             })
         }
     };
