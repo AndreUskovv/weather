@@ -14,21 +14,20 @@ class SearchScreen extends Component {
         super(props);
         this.state = {
             searchText: '',
-            weather: null,
-            day: null
+            weather: null
         }
     }
 
     componentDidMount(): void {
         const location = this.props.navigation.getParam("location");
         if (location) {
-            const city = capitalize(location.split(',')[0]);
+            const city = location.split(',')[0];
             this.setState({searchText: city},
                 () => this.getWeather(city));
         }
     }
 
-    handleSearch = () => this.getWeather(this.state.searchText);
+    handleSearch = () => this.getWeather(capitalize(this.state.searchText));
 
     getWeather = async city => {
         const value = await fetchWeatherForFiveDays(city);
@@ -37,7 +36,7 @@ class SearchScreen extends Component {
     };
 
     render() {
-        const {searchText, weather, day} = this.state;
+        const {searchText, weather} = this.state;
         const {navigation} = this.props;
 
         return (
