@@ -18,7 +18,7 @@ class SearchScreen extends Component {
         }
     }
 
-    componentDidMount(): void {
+    componentWillMount(): void {
         const location = this.props.navigation.getParam("location");
         if (location) {
             const city = location.split(',')[0];

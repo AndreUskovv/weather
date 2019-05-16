@@ -37,10 +37,11 @@ export default class App extends Component {
         const data = await fetchLocation(coordinates);
 
         if (data) {
+            console.log(data);
             const location = data.plus_code.compound_code.split(',');
             const index = location[0].indexOf(' '),
                 city = location[0].slice(index),
-                country = location[2];
+                country = location[2] ? location[2] : location[1];
 
             const updateCity = city[city.length - 1] === "'" ? city.slice(0, -1) : city;
 

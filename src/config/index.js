@@ -7,8 +7,8 @@ const weatherApiKey = 'bc7ccc4e5edcff6f0d569f6018fa371c';
 const initialRegion = {
     latitude: 47.101328,
     longitude: 37.639709,
-    latitudeDelta: 0.005866,
-    longitudeDelta: 0.005866 * width / height,
+    latitudeDelta: 1.4866,
+    longitudeDelta: 1.4866 * width / height,
 };
 
 const Images = {
